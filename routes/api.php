@@ -19,3 +19,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('/task',App\Http\Controllers\Api\TaskController::class);
+Route::post('/task/start/{id}',[App\Http\Controllers\Api\TaskController::class,'startTask']);
+Route::post('/task/stop/{id}',[App\Http\Controllers\Api\TaskController::class,'stopTask']);
+
+Route::resource('/jobs',App\Http\Controllers\Api\JobController::class);
+
+Route::resource('/task/pack',App\Http\Controllers\Api\TaskPakcController::class);
+Route::post('/task/pack/all',[App\Http\Controllers\Api\TaskPakcController::class,'showpack']);
+
+//Route::resource('/task',App\Http\Controllers\Api\TaskController::class);

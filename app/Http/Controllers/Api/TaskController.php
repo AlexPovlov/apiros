@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Http\Requests\TaskRequest;
 use App\Jobs\CryptTaskJob;
+use App\Models\Job;
 use App\Services\HashService;
+use Bus;
 
 class TaskController extends BaseController
 {
@@ -18,6 +20,16 @@ class TaskController extends BaseController
      *      tags={"tasks"},
      *      summary="Получение списка задач",
      *      description="Метод возвращает данные ...",
+     * 
+     *       @OA\Parameter(
+     *          name="id",
+     *          description="id task",
+     *          in="path",
+     *          @OA\Schema(
+     *              type="sting"
+     *          )
+     *          
+     *     ),
      * 
      *     @OA\Response(
      *          response=200,
@@ -32,16 +44,6 @@ class TaskController extends BaseController
         
         $task = Task::all();
         return $this->sendResponse($task);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -72,8 +74,83 @@ class TaskController extends BaseController
         $validated = $request->validated();
         
         $task = Task::create($validated);
-        CryptTaskJob::dispatch(new HashService, $task);
-        //return $this->sendResponse($task);
+        CryptTaskJob::dispatch(new HashService(),$task);
+        return $this->sendResponse($task);
+       
+        
+    }
+
+    /**
+     * @OA\Post(
+     *      path="/task/stop/{id}",
+     *      operationId="stoptask",
+     *      tags={"tasks"},
+     *      summary="Получение списка задач",
+     *      description="Метод возвращает данные ...",
+     * 
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="id task",
+     *          in="path",
+     *          @OA\Schema(
+     *              type="sting"
+     *          )
+     *          
+     *     ),
+     * 
+     
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Task")
+     *     )
+     * )
+     * 
+     */
+
+    public function stopTask($id)
+    {
+        $task = Task::find($id);
+        $task->status = 'stop';
+        $task->save();
+        Job::destroy($task->job_id);
+        return $this->sendResponse($task);
+        
+    }
+
+    /**
+     * @OA\Post(
+     *      path="/task/start/{id}",
+     *      operationId="starttask",
+     *      tags={"tasks"},
+     *      summary="Получение списка задач",
+     *      description="Метод возвращает данные ...",
+     * 
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="id task",
+     *          in="path",
+     *          @OA\Schema(
+     *              type="sting"
+     *          )
+     *          
+     *     ),
+     
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/Task")
+     *     )
+     * )
+     * 
+     */
+
+    public function startTask($id)
+    {
+        $task = Task::find($id);
+        $task->status = 'start';
+        $task->save();
+        CryptTaskJob::dispatch(new HashService(),$task);
     }
 
     /**
@@ -82,42 +159,10 @@ class TaskController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Task $task)
     {
-        //
+        return $this->sendResponse($task);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }

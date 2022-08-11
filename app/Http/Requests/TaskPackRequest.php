@@ -6,40 +6,30 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @OA\Schema(
- *     title="TaskRequest",
- *     description="Task Request",
+ *     title="TaskPackRequest",
+ *     description="Task Pack Request",
  *     @OA\Xml(
- *         name="TaskRequest"
+ *         name="TaskPackRequest"
  *     )
  * )
  * 
  */
 
 
-class TaskRequest extends FormRequest
+class TaskPackRequest extends FormRequest
 {
     /**
      * @OA\Property(
-     *      title="Value",
-     *      description="строка которую шифрует",
-     *      example="qwerty"
+     *      title="Packege",
+     *      description="Массив обьектов для шифрования",
+     *      example="[{""value"":""qwert"",""repetitions"":12}]"
      * )
      *
      * @var string
      */
-    private $value;
+    private $packege;
 
-    /**
-     * @OA\Property(
-     *      title="Repetitions",
-     *      description="количетсво проходов шифра",
-     *      format="int64",
-     *      example=1
-     * )
-     *
-     * @var int
-     */
-    private $repetitions;
+    
     
     /**
      * Determine if the user is authorized to make this request.
@@ -60,8 +50,7 @@ class TaskRequest extends FormRequest
     {
         return [
             'packege' => 'array',
-            'value' => 'string|max:2000',
-            'repetitions' => 'integer',
+            
         ];
     }
 }

@@ -12,6 +12,28 @@
         }
     ],
     "paths": {
+        "/jobs": {
+            "get": {
+                "tags": [
+                    "jobs"
+                ],
+                "summary": "Получение списка jobs",
+                "description": "Метод возвращает данные ...",
+                "operationId": "getJobs",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Task"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/task": {
             "get": {
                 "tags": [
@@ -20,6 +42,16 @@
                 "summary": "Получение списка задач",
                 "description": "Метод возвращает данные ...",
                 "operationId": "getTask",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id task",
+                        "schema": {
+                            "type": "sting"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -56,10 +88,190 @@
                     }
                 }
             }
+        },
+        "/task/stop/{id}": {
+            "post": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Получение списка задач",
+                "description": "Метод возвращает данные ...",
+                "operationId": "stoptask",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id task",
+                        "schema": {
+                            "type": "sting"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Task"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/task/start/{id}": {
+            "post": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Получение списка задач",
+                "description": "Метод возвращает данные ...",
+                "operationId": "starttask",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id task",
+                        "schema": {
+                            "type": "sting"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Task"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/task/pack": {
+            "post": {
+                "tags": [
+                    "task pack"
+                ],
+                "summary": "Создание данных",
+                "description": "Метод содает данные пакетом и шифрует их ...",
+                "operationId": "setPackTask",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskPackRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/task/pack/all": {
+            "post": {
+                "tags": [
+                    "task pack"
+                ],
+                "summary": "Создание данных",
+                "description": "Возвращает пакет данных",
+                "operationId": "GetPackTask",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskPackRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/task/pack/stop": {
+            "post": {
+                "tags": [
+                    "task pack"
+                ],
+                "summary": "Создание данных",
+                "description": "Останавливает шифрование пакетно",
+                "operationId": "stopPackTask",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskPackRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/task/pack/start": {
+            "post": {
+                "tags": [
+                    "task pack"
+                ],
+                "summary": "Создание данных",
+                "description": "Запускает шифрование пакетно",
+                "operationId": "startPackTask",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskPackRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
+            "TaskPackRequest": {
+                "title": "TaskPackRequest",
+                "description": "Task Pack Request",
+                "properties": {
+                    "packege": {
+                        "title": "Packege",
+                        "description": "Массив обьектов для шифрования",
+                        "type": "string",
+                        "example": "[{\"value\":\"qwert\",\"repetitions\":12}]"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "TaskPackRequest"
+                }
+            },
             "TaskRequest": {
                 "title": "TaskRequest",
                 "description": "Task Request",
