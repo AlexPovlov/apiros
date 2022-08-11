@@ -1,0 +1,138 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "OpenApi Documentation",
+        "description": "Документация для микро сервиса",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://apiros/api",
+            "description": "Основной API"
+        }
+    ],
+    "paths": {
+        "/task": {
+            "get": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Получение списка задач",
+                "description": "Метод возвращает данные ...",
+                "operationId": "getTask",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Task"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "tasks"
+                ],
+                "summary": "Создание данных",
+                "description": "Метод содает данные и шифрует их ...",
+                "operationId": "setTask",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "TaskRequest": {
+                "title": "TaskRequest",
+                "description": "Task Request",
+                "properties": {
+                    "value": {
+                        "title": "Value",
+                        "description": "строка которую шифрует",
+                        "type": "string",
+                        "example": "qwerty"
+                    },
+                    "repetitions": {
+                        "title": "Repetitions",
+                        "description": "количетсво проходов шифра",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "TaskRequest"
+                }
+            },
+            "Task": {
+                "title": "Task",
+                "description": "Task model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "value": {
+                        "title": "Value",
+                        "description": "строка которую шифрует",
+                        "type": "string",
+                        "example": "qwerty"
+                    },
+                    "repetitions": {
+                        "title": "Repetitions",
+                        "description": "количетсво проходов шифра",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "repetition_repetitions": {
+                        "title": "Repetition Repetitions",
+                        "description": "остаток проходов шифра",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Task"
+                }
+            }
+        }
+    }
+}
