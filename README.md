@@ -4,4 +4,5 @@
 <p>composer update</p>
 <p>Изменить .env для подключения к базе и подключения очередей к базе данных</p>
 <p>php artisan migrate</p>
+<p>php artisan l5-swagger:generate</p>
 <p>Документация апи по ссылке /api/documentation</p>
