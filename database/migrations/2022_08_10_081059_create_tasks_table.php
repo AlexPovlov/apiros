@@ -15,9 +15,13 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->string('last_value')->nullable();
             $table->string('value');
             $table->integer('repetitions');
             $table->integer('repetition_repetitions')->nullable();
+            $table->integer('salt')->nullable();
+            $table->integer('sleep')->nullable();
+            $table->integer('status')->default('start');
             $table->foreignId('job_id')->nullable()->constrained('jobs')->nullOnDelete();
             $table->timestamps();
         });

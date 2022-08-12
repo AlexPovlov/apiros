@@ -95,7 +95,7 @@
                     "tasks"
                 ],
                 "summary": "Получение списка задач",
-                "description": "Метод возвращает данные ...",
+                "description": "Метод останавливает шифрование ...",
                 "operationId": "stoptask",
                 "parameters": [
                     {
@@ -127,7 +127,7 @@
                     "tasks"
                 ],
                 "summary": "Получение списка задач",
-                "description": "Метод возвращает данные ...",
+                "description": "Метод запускает шифрование ...",
                 "operationId": "starttask",
                 "parameters": [
                     {
@@ -184,7 +184,7 @@
                     "task pack"
                 ],
                 "summary": "Создание данных",
-                "description": "Возвращает пакет данных",
+                "description": "Возвращает пакет данных по id задач",
                 "operationId": "GetPackTask",
                 "requestBody": {
                     "required": true,
@@ -288,6 +288,19 @@
                         "type": "integer",
                         "format": "int64",
                         "example": 1
+                    },
+                    "salt": {
+                        "title": "Salt",
+                        "description": "соль добавляющяясь к строке",
+                        "type": "integer",
+                        "example": "saltqweqwe"
+                    },
+                    "sleep": {
+                        "title": "Repetitions",
+                        "description": "Ограничение секунд выполнения проходов шифрования",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 2
                     }
                 },
                 "type": "object",

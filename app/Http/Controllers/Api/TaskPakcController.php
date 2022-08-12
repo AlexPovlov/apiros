@@ -62,7 +62,7 @@ class TaskPakcController extends BaseController
      *      operationId="GetPackTask",
      *      tags={"task pack"},
      *      summary="Создание данных",
-     *      description="Возвращает пакет данных",
+     *      description="Возвращает пакет данных по id задач",
      * 
      *      @OA\RequestBody(
      *          required=true,

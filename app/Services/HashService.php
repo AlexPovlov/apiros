@@ -14,19 +14,44 @@ class HashService
         
     }
 
+    /**
+     * 
+     * метод шифрования строки задачи
+     * 
+     * @param Task $task задача
+     * @param int $curent_repetitions колличество проходов шифрования
+     * 
+     * @return void
+     */
+
     
     public function crypt($task,$curent_repetitions = 0)
     {
        
         if ($curent_repetitions <= $task->repetitions and $task->status !== 'stop') {
-            echo $task->status;
+
             $task->refresh();
-            $task->value = Hash::make($task->value);
+
+            //echo $task->status;
+            if ($curent_repetitions != 0) {
+                $task->value = $task->value ."_". $task->salt;
+            }
+
+            $task->last_value = $task->value;
+            $task->value = Hash::make($task->last_value);
+
             $task->repetition_repetitions = $curent_repetitions;
-            $this->crypt($task,$curent_repetitions + 1);
-        }else {
+
+            sleep($task->sleep);
             $task->save();
+            $this->crypt($task,$curent_repetitions + 1);
         }
+
+        return 0;
+        // else {
+            
+        //     $task->save();
+        // }
     }
 
 

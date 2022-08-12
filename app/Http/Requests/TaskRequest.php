@@ -40,6 +40,30 @@ class TaskRequest extends FormRequest
      * @var int
      */
     private $repetitions;
+
+     /**
+     * @OA\Property(
+     *      title="Salt",
+     *      description="соль добавляющяясь к строке",
+     *      
+     *      example="saltqweqwe"
+     * )
+     *
+     * @var int
+     */
+    private $salt;
+
+     /**
+     * @OA\Property(
+     *      title="Repetitions",
+     *      description="Ограничение секунд выполнения проходов шифрования",
+     *      format="int64",
+     *      example=2
+     * )
+     *
+     * @var int
+     */
+    private $sleep;
     
     /**
      * Determine if the user is authorized to make this request.
@@ -59,9 +83,11 @@ class TaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'packege' => 'array',
-            'value' => 'string|max:2000',
+            
+            'value' => 'string|max:255',
             'repetitions' => 'integer',
+            'salt' => 'string|max:255',
+            'sleep' => 'integer',
         ];
     }
 }

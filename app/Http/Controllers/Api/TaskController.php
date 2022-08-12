@@ -86,7 +86,7 @@ class TaskController extends BaseController
      *      operationId="stoptask",
      *      tags={"tasks"},
      *      summary="Получение списка задач",
-     *      description="Метод возвращает данные ...",
+     *      description="Метод останавливает шифрование ...",
      * 
      *      @OA\Parameter(
      *          name="id",
@@ -124,7 +124,7 @@ class TaskController extends BaseController
      *      operationId="starttask",
      *      tags={"tasks"},
      *      summary="Получение списка задач",
-     *      description="Метод возвращает данные ...",
+     *      description="Метод запускает шифрование ...",
      * 
      *      @OA\Parameter(
      *          name="id",
@@ -153,16 +153,7 @@ class TaskController extends BaseController
         CryptTaskJob::dispatch(new HashService(),$task);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Task $task)
-    {
-        return $this->sendResponse($task);
-    }
+    
 
     
 }

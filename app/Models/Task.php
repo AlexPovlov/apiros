@@ -84,7 +84,7 @@ class Task extends Model
     
     protected $table = 'tasks';
 
-    protected $fillable = ['value','repetitions','job_id','status'];
+    protected $fillable = ['value','repetitions','job_id','status','salt','sleep','last_value'];
 
     public function job(){
         return $this->belongsTo(Job::class);

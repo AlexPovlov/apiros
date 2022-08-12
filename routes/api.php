@@ -18,13 +18,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('/task',App\Http\Controllers\Api\TaskController::class);
-Route::post('/task/start/{id}',[App\Http\Controllers\Api\TaskController::class,'startTask']);
-Route::post('/task/stop/{id}',[App\Http\Controllers\Api\TaskController::class,'stopTask']);
+Route::prefix('task')->group(function(){
+    Route::resource('',App\Http\Controllers\Api\TaskController::class);
+    Route::post('/start/{id}',[App\Http\Controllers\Api\TaskController::class,'startTask']);
+    Route::post('/stop/{id}',[App\Http\Controllers\Api\TaskController::class,'stopTask']);
 
-Route::resource('/jobs',App\Http\Controllers\Api\JobController::class);
+    Route::prefix('pack')->group(function(){
+        Route::post('',[App\Http\Controllers\Api\TaskPakcController::class,'store']);
+        Route::post('/stop',[App\Http\Controllers\Api\TaskPakcController::class,'stopTask']);
+        Route::post('/start',[App\Http\Controllers\Api\TaskPakcController::class,'startTask']);
+        Route::post('/all',[App\Http\Controllers\Api\TaskPakcController::class,'showpack']);
+    });
+    
+});
 
-Route::resource('/task/pack',App\Http\Controllers\Api\TaskPakcController::class);
-Route::post('/task/pack/all',[App\Http\Controllers\Api\TaskPakcController::class,'showpack']);
 
-//Route::resource('/task',App\Http\Controllers\Api\TaskController::class);
+
+Route::get('/jobs',[App\Http\Controllers\Api\JobController::class,'index']);
+
+
